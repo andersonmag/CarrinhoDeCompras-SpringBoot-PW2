@@ -31,7 +31,7 @@
                         <a class="nav-link" href="/formulario_item">Produtos</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0" action="">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -44,14 +44,14 @@
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" aria-describedby="nome"
-                    placeholder="Nome do item" th:field="*{nome}" th:value="${nome}" > 
+                    placeholder="Nome do Cliente" th:field="*{nome}" th:value="${nome}" > 
                     <p th:if="${#fields.hasErrors('nome')}" th:errors="${cliente.nome}">Name Error</p>    
             </div>
             <div class="form-group">
                 <label for="preco">Endereço:</label>
                 <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Endereço do cliente"
                 th:field="*{endereco}" th:value="${nome}">
-                <p th:if="${#fields.hasErrors('endereco')}" th:errors="${cliente.endereco}">Name Error</p>    
+                <p th:if="${#fields.hasErrors('endereco')}" th:errors="${cliente.endereco}">Endereco Error</p>    
             </div>
             <button type="submit" class="btn btn-primary">Cadastrar</button>
             <button type="submit" class="btn btn-primary">Atualizar dados</button>
