@@ -1,24 +1,29 @@
 package com.example.minhaloja.modelo;
-
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    // @ManyToOne
     // private Cliente cliente;
-    // private List<Item> itens;
-    private Date data;
+    
+    @ManyToOne
+    private Item item;
+    
+    private String data;
     private Double valor;
 
-    public Pedido(Cliente cliente, List<Item> itens, Date data, Double valor) {
+    public Pedido(){}
+    public Pedido(Cliente cliente, List<Item> itens, String data, Double valor) {
         // this.cliente = cliente;
         // this.itens = itens;
         this.data = data;
@@ -49,11 +54,11 @@ public class Pedido {
     //     this.itens = itens;
     // }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -63,6 +68,14 @@ public class Pedido {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     

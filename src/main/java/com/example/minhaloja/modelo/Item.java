@@ -1,11 +1,13 @@
 package com.example.minhaloja.modelo;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.DecimalMax;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,9 @@ public class Item {
     @NotNull(message = "O preço não pode ser vazio.")
     @DecimalMin("0.1") 
     private double preco;
+
+    // @OneToMany(mappedBy = "item")
+    // private List<Pedido> pedidos;
 
     public Item(){
         super();
