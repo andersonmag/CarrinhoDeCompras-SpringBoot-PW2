@@ -15,21 +15,17 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotBlank(message = "O nome não pode ser vazio.")
     @Size(min = 2, max = 50, message = "O nome precisa ter entre {min} e {max} catacteres.")
     private String nome;
-    
+
     @NotNull(message = "O preço não pode ser vazio.")
-    @DecimalMin("0.1") 
+    @DecimalMin("0.1")
     private double preco;
 
-    // @OneToMany(mappedBy = "item")
-    // private List<Pedido> pedidos;
+    public Item() {}
 
-    public Item(){
-        super();
-    }
     public Long getId() {
         return id;
     }
@@ -54,5 +50,4 @@ public class Item {
         this.preco = preco;
     }
 
-    
 }

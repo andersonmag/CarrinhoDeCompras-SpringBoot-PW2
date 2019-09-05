@@ -1,7 +1,7 @@
 package com.example.minhaloja.modelo;
 
 import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "O nome não pode ser vazio.")
@@ -22,8 +22,9 @@ public class Cliente {
 
     @NotBlank(message = "O endereço não pode ser vazio.")
     private String endereco;
-    // @OneToMany(mappedBy = "cliente")
-    // private List<Pedido> pedidos;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
 
     public Cliente() {
     }
@@ -52,12 +53,12 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    // public List<Pedido> getPedidos() {
-    //     return pedidos;
-    // }
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
 
-    // public void setPedidos(List<Pedido> pedidos) {
-    //     this.pedidos = pedidos;
-    // }
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 
 }
