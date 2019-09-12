@@ -24,6 +24,8 @@ public class Item {
     @DecimalMin("0.1")
     private double preco;
 
+    private String caminhoArquivo;
+
     public Item() {}
 
     public Long getId() {
@@ -48,6 +50,14 @@ public class Item {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public String getCaminhoArquivo() {
+        return caminhoArquivo;
+    }
+
+    public void setCaminhoArquivo(String caminhoArquivo) {
+        this.caminhoArquivo = caminhoArquivo;
     }
 
 }

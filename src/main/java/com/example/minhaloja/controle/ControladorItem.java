@@ -1,5 +1,9 @@
 package com.example.minhaloja.controle;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Item;
@@ -8,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,17 +32,47 @@ public class ControladorItem {
     }
 
     @RequestMapping("/novo_item")
-    public ModelAndView cadastroItem(@Valid Item item, BindingResult bidingResult, RedirectAttributes redirect) {
+    public ModelAndView cadastroItem(@Valid Item item, BindingResult bidingResult,
+     RedirectAttributes redirect,@RequestParam(value = "imagem", required = false) MultipartFile imagem){
         ModelAndView retorno;
         if (bidingResult.hasErrors()) {
             redirect.addFlashAttribute("item", item);
             retorno = new ModelAndView("cadastroItens.html");
             return retorno;
         }
+
         retorno = new ModelAndView("redirect:/");
         repositorioItem.save(item);
+
+        if(imagem.isEmpty() == false){
+            String caminhoArquivo = CriarDiretorio(item, imagem);
+            item.setCaminhoArquivo(caminhoArquivo);
+
+            repositorioItem.save(item);
+        }
+        
         redirect.addFlashAttribute("mensagem", "Item cadastrado com sucesso!");
         return retorno;
+    }
+
+    private String CriarDiretorio(Item item, MultipartFile imagem){
+        try {
+            byte[] conteudo = imagem.getBytes();
+            Path caminhoArquivo = Paths.get("src" + File.separator + "main" + File.separator + "resources" +
+             File.separator + "static" + File.separator + "img" + File.separator + "itens" + File.separator  + item.getId());
+
+            if(Files.exists(caminhoArquivo) == false){
+                Files.createDirectories(caminhoArquivo);
+            }
+
+            Files.write(caminhoArquivo.resolve(imagem.getOriginalFilename()), conteudo);
+            return caminhoArquivo.resolve(imagem.getOriginalFilename()).toString();
+            
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        return "";
     }
 
     @RequestMapping("/listar_itens")

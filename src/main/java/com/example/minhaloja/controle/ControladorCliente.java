@@ -17,7 +17,7 @@ public class ControladorCliente {
 
     @Autowired
     RepositorioCliente repositorioCliente;
-
+    
     @RequestMapping("/")
     public ModelAndView index() {
         ModelAndView retorno = new ModelAndView("index.html");
