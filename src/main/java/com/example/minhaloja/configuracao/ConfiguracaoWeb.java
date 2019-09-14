@@ -9,8 +9,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.stereotype.Component;
 
-
+@Component
 @Configuration
 @EnableWebSecurity
 public class ConfiguracaoWeb extends WebSecurityConfigurerAdapter{
