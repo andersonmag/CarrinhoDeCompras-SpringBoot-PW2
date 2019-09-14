@@ -19,8 +19,9 @@ public class ConfiguracaoWeb extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/fazer_pedido", "/novo_pedido", "/pedidos")
+                .authenticated()
+                .anyRequest().permitAll()
                 .and()
             .formLogin(); 
     }
