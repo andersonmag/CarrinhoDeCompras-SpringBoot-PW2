@@ -1,5 +1,6 @@
 package com.example.minhaloja.modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,8 @@ public class Item {
     @DecimalMin("0.1")
     private double preco;
 
-    private String caminhoArquivo;
+    @Column(name = "nome_imagem")
+    private String nomeImagem;
 
     public Item() {}
 
@@ -52,12 +54,12 @@ public class Item {
         this.preco = preco;
     }
 
-    public String getCaminhoArquivo() {
-        return caminhoArquivo;
+    public String getNomeImagem() {
+        return nomeImagem;
     }
 
-    public void setCaminhoArquivo(String caminhoArquivo) {
-        this.caminhoArquivo = caminhoArquivo;
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
     }
 
 }

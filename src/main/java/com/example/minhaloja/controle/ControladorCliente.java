@@ -17,7 +17,7 @@ public class ControladorCliente {
 
     @Autowired
     RepositorioCliente repositorioCliente;
-    
+
     @RequestMapping("/")
     public ModelAndView index() {
         ModelAndView retorno = new ModelAndView("index.html");
@@ -41,7 +41,7 @@ public class ControladorCliente {
         }
         retorno = new ModelAndView("redirect:/");
         repositorioCliente.save(cliente);
-        redirect.addFlashAttribute("mensagem", "Cliente cadastrado com sucesso!");
+        redirect.addFlashAttribute("mensagem", cliente.getNome() + " cadastrado com sucesso!");
         return retorno;
     }
 
@@ -61,10 +61,10 @@ public class ControladorCliente {
     }
 
     @RequestMapping("/atualizar/{id}")
-    public ModelAndView atualizar(@PathVariable("id") long id){
+    public ModelAndView atualizar(@PathVariable("id") long id) {
         ModelAndView model = new ModelAndView("cadastroCliente.html");
         Optional<Cliente> opcao = repositorioCliente.findById(id);
-        if(opcao.isPresent()){
+        if (opcao.isPresent()) {
             Cliente cliente = opcao.get();
             model.addObject("cliente", cliente);
             return model;
@@ -74,7 +74,7 @@ public class ControladorCliente {
     }
 
     @RequestMapping("/listar_clientes")
-    public ModelAndView att(){
+    public ModelAndView att() {
         ModelAndView model = new ModelAndView("listar_clientes.html");
         Iterable<Cliente> clientes = repositorioCliente.findAll();
         model.addObject("clientes", clientes);
@@ -82,7 +82,7 @@ public class ControladorCliente {
     }
 
     @RequestMapping("/buscar_cliente")
-    public ModelAndView buscar(String q){
+    public ModelAndView buscar(String q) {
         ModelAndView model = new ModelAndView("listar_clientes.html");
         Iterable<Cliente> clientes = repositorioCliente.findByNomeContaining(q);
         model.addObject("clientes", clientes);

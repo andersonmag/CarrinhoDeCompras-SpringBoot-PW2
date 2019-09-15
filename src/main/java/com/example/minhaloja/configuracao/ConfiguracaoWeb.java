@@ -33,7 +33,7 @@ public class ConfiguracaoWeb extends WebSecurityConfigurerAdapter{
              User.withDefaultPasswordEncoder()
                 .username("aluno")
                 .password("aluno")
-                .roles("USER")
+                .roles("ADMIM")
                 .build();
 
         return new InMemoryUserDetailsManager(user);
