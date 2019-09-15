@@ -1,14 +1,8 @@
-INSERT INTO ITEM (ID, NOME, PRECO) 
-VALUES(1, 'Hamburguer', 19.99),
-(2, 'Lasanha', 5),
-(3, 'Pizza', 25.49),
-(4, 'Coxinha', 2.5),
-(5, 'Especial Pedreiro', 15),
-(6, 'Batata Frita', 1.99),
-(7, 'Sorvete', 4.99),
-(8, 'Coca-Cola', 5),
-(9, 'Fanta', 3.79),
-(10, 'Água', 1.5);
+INSERT INTO ITEM (ID, NOME, PRECO, NOME_IMAGEM) 
+VALUES(1, 'Hamburguer', 19.99, 'hamburguer.png'),
+(2, 'Coxinha', 2.5, 'coxinha.png'),
+(3, 'Batata Frita', 1.99, 'batata-frita.png'),
+(4, 'Pepsi', 4, 'pepsi.png');
 
 INSERT INTO CLIENTE (ID, NOME, ENDERECO)
 VALUES(1, 'ANDERSON','RUA 1'),
