@@ -45,28 +45,28 @@ public class ControladorItem {
         repositorioItem.save(item);
 
         if(imagem.isEmpty() == false){
-            String caminhoArquivo = CriarDiretorio(item, imagem);
-            item.setCaminhoArquivo(caminhoArquivo);
+            String nomeImagem = CriarDiretorio(item, imagem);
+            item.setNomeImagem(nomeImagem);
 
             repositorioItem.save(item);
         }
         
-        redirect.addFlashAttribute("mensagem", "Item cadastrado com sucesso!");
+        redirect.addFlashAttribute("mensagem", item.getNome() + " cadastrado com sucesso!");
         return retorno;
     }
 
     private String CriarDiretorio(Item item, MultipartFile imagem){
         try {
             byte[] conteudo = imagem.getBytes();
-            Path caminhoArquivo = Paths.get("src" + File.separator + "main" + File.separator + "resources" +
-             File.separator + "static" + File.separator + "img" + File.separator + "itens" + File.separator  + item.getId());
+            Path caminhoArquivo = Paths.get("src/main/resources/static/img/" + File.separator + "itens"
+            + File.separator  + item.getId());
 
             if(Files.exists(caminhoArquivo) == false){
                 Files.createDirectories(caminhoArquivo);
             }
 
             Files.write(caminhoArquivo.resolve(imagem.getOriginalFilename()), conteudo);
-            return caminhoArquivo.resolve(imagem.getOriginalFilename()).toString();
+            return imagem.getOriginalFilename().toString();
             
         } catch (Exception e) {
             e.getMessage();
@@ -76,7 +76,7 @@ public class ControladorItem {
     }
 
     @RequestMapping("/listar_itens")
-    public ModelAndView att() {
+    public ModelAndView listar() {
         ModelAndView model = new ModelAndView("listar_itens.html");
         Iterable<Item> itens = repositorioItem.findAll();
         model.addObject("itens", itens);
