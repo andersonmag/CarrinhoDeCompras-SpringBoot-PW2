@@ -58,7 +58,7 @@ public class ControladorItem {
     private String CriarDiretorio(Item item, MultipartFile imagem){
         try {
             byte[] conteudo = imagem.getBytes();
-            Path caminhoArquivo = Paths.get("src/main/resources/static/img/" + File.separator + "itens"
+            Path caminhoArquivo = Paths.get("src/main/resources/static/img" + File.separator + "itens"
             + File.separator  + item.getId());
 
             if(Files.exists(caminhoArquivo) == false){
