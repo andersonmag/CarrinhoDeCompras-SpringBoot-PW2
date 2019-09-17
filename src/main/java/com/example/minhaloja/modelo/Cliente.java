@@ -23,7 +23,7 @@ public class Cliente {
     @NotBlank(message = "O endereço não pode ser vazio.")
     private String endereco;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.REFRESH)
     private List<Pedido> pedidos;
 
     public Cliente() {

@@ -47,10 +47,11 @@
     <div class="container">
         <form method="POST" action="#" th:action="@{/novo_pedido}" th:object="${pedido}">
             <h2 class="m-0" style="color: red; font-family: Arial, Helvetica, sans-serif;">Faça seu pedido </h4>
+                <input type="hidden" name="id" id="id" th:field="*{id}" th:value="${id}">
                 <br>
                 <div class="form-group">
-                    <label for="nome">Cliente: </label><br>
-                    <select class="custom-select" id="cliente" th:field="*{cliente}" name="cliente"
+                    <label for="exampleFormControlSelect2">Cliente: </label><br>
+                    <select class="custom-select" id="exampleFormControlSelect2" th:field="*{cliente}" th:value="${cliente}"
                         style="max-width: 55%;">
                         <option th:each="cliente:${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}">
                         </option>
@@ -60,7 +61,8 @@
 
             <div class="form-group">
                 <label for="exampleFormControlSelect2">Selecione os Itens: </label>
-                <select multiple class="form-control" id="exampleFormControlSelect2" th:field="*{itens}" name="item" style="max-width: 55%;" required>
+                <select multiple class="form-control" id="exampleFormControlSelect2" th:field="*{itens}" name="item" style="max-width: 55%;" 
+                th:value="${itens}" required>
                     <option th:each="item:${itens}" th:value="${item.id}"
                         th:text="${item.nome} + '            ' +  'R$ ' + ${item.preco}">
                     </option>

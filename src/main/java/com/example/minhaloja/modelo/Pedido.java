@@ -19,7 +19,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @NotNull(message = "Escolha um cliente")
     @JoinColumn(name = "CLIENTE_ID")
     private Cliente cliente;
