@@ -1,11 +1,14 @@
 package com.example.minhaloja.controle;
 
 import java.util.Optional;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Cliente;
 import com.example.minhaloja.repositorios.RepositorioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,14 +22,21 @@ public class ControladorCliente {
     RepositorioCliente repositorioCliente;
 
     @RequestMapping("/")
-    public ModelAndView index() {
-        ModelAndView retorno = new ModelAndView("index.html");
-        return retorno;
+    public ModelAndView index(HttpServletResponse response, @CookieValue(name = "welcome",
+                               defaultValue = "") String welcome){
+        ModelAndView model = new ModelAndView("index");
+        Cookie cookie = new Cookie("welcome", "novamente");
+
+        model.addObject("mensagem", welcome);
+		response.addCookie(cookie);
+                                
+        return model;
     }
 
     @RequestMapping("/formulario_cliente")
     public ModelAndView formularioCliente(Cliente cliente) {
         ModelAndView retorno = new ModelAndView("cadastroCliente.html");
+
         return retorno;
     }
 
@@ -74,7 +84,7 @@ public class ControladorCliente {
     }
 
     @RequestMapping("/listar_clientes")
-    public ModelAndView att() {
+    public ModelAndView listar() {
         ModelAndView model = new ModelAndView("listar_clientes.html");
         Iterable<Cliente> clientes = repositorioCliente.findAll();
         model.addObject("clientes", clientes);
