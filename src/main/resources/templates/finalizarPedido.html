@@ -53,6 +53,7 @@
                     <label for="exampleFormControlSelect2">Cliente: </label><br>
                     <select class="custom-select" id="exampleFormControlSelect2" th:field="*{cliente}" th:value="${cliente}"
                         style="max-width: 55%;">
+                        <option selected value="">Quem é você?</option>
                         <option th:each="cliente:${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}">
                         </option>
                     </select>
@@ -80,17 +81,19 @@
             <br>
             <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
             <button type="reset" class="btn btn-secundary">Limpar</button>
+            <form method="POST" action="#" th:action="@{/adicionar}" th:object="${carrinhoCompras}">
+                <br>
+            <button type="submit" class="btn btn-warning" style="margin-top: 1%">Apenas Salvar Itens escolhidos</button>
+
         </form>
     </div>
     <script type="text/javascript">
         var hoje = new Date(new Date().getFullYear(),
             new Date().getMonth(), new Date().getDate());
         $('#data').datepicker({
-
             uiLibrary: 'bootstrap4',
             format: 'dd/mm/yyyy',
             minDate: hoje,
-
         });
     </script> 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

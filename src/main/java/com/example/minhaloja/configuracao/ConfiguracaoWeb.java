@@ -3,6 +3,7 @@ package com.example.minhaloja.configuracao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 @Configuration
 @EnableWebSecurity
 public class ConfiguracaoWeb extends WebSecurityConfigurerAdapter{
+
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -33,9 +35,13 @@ public class ConfiguracaoWeb extends WebSecurityConfigurerAdapter{
              User.withDefaultPasswordEncoder()
                 .username("aluno")
                 .password("aluno")
-                .roles("ADMIM")
+                .roles("USER")
                 .build();
 
         return new InMemoryUserDetailsManager(user);
+    }
+
+    public void configure(WebSecurity web) throws Exception{
+        web.ignoring().antMatchers("/h2-console/**");
     }
 }

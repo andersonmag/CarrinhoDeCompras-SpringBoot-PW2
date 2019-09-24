@@ -80,6 +80,7 @@ public class ControladorItem {
         ModelAndView model = new ModelAndView("listar_itens.html");
         Iterable<Item> itens = repositorioItem.findAll();
         model.addObject("itens", itens);
+
         return model;
     }
 

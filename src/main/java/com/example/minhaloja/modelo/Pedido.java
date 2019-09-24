@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -24,7 +25,7 @@ public class Pedido {
     @JoinColumn(name = "CLIENTE_ID")
     private Cliente cliente;
 
-    @NotNull(message = "Escolha algum item")
+    @NotEmpty(message = "Escolha algum item")
     @ManyToMany
     private List<Item> itens;
 
@@ -33,12 +34,12 @@ public class Pedido {
 
     @NotNull(message = "O valor não pode ser vazio.")
     @DecimalMin("0.1")
-    private Double valor;
+    private double valor;
 
     public Pedido() {
     }
 
-    public Pedido(Cliente cliente, List<Item> itens, String data, Double valor) {
+    public Pedido(Cliente cliente, List<Item> itens, String data, double valor) {
         this.cliente = cliente;
         this.itens = itens;
         this.data = data;
@@ -61,9 +62,9 @@ public class Pedido {
         this.itens = itens;
     }
 
-    public Double getItensValores() {
+    public double getItensValores() {
 
-        Double valorTotal = 0.0;
+        double valorTotal = 0.0;
 
         for (Item item : itens) {
             valorTotal += item.getPreco();
@@ -79,7 +80,7 @@ public class Pedido {
         this.data = data;
     }
 
-    public Double getValor() {
+    public double getValor() {
         return valor;
     }
 
@@ -94,5 +95,4 @@ public class Pedido {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
 }
