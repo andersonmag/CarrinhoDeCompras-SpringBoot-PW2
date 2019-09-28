@@ -1,11 +1,6 @@
 package com.example.minhaloja.controle;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Cliente;
 import com.example.minhaloja.modelo.Item;
@@ -15,7 +10,6 @@ import com.example.minhaloja.repositorios.RepositorioItem;
 import com.example.minhaloja.repositorios.RepositorioPedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,53 +26,23 @@ public class ControladorPedido {
     @Autowired
     RepositorioItem repositorioItem;
 
-    // List de pedidos
-    List<Pedido> pedidos = new ArrayList<>();
-
     @RequestMapping("/fazer_pedido")
-    public ModelAndView fazerPedido(RedirectAttributes redirect, Pedido pedido,
-            @CookieValue(name = "car", defaultValue = "") Long id) {
+    public ModelAndView fazerPedido(RedirectAttributes redirect, Pedido pedido) {
         ModelAndView model = new ModelAndView("finalizarPedido.html");
         Iterable<Cliente> clientes = repositorioCliente.findAll();
         Iterable<Item> itens = repositorioItem.findAll();
         model.addObject("clientes", clientes);
         model.addObject("itens", itens);
 
-        // Buscando localmente o ID
-        for (Pedido pedido2 : pedidos) {
-
-            if (pedido2.getId().equals(id)) {
-                model.addObject("pedido", pedido2);
-
-                return model;
-            }
-        }
-
         return model;
     }
 
     @RequestMapping("/novo_pedido")
-    public ModelAndView finalizarPedido(@Valid Pedido pedido, BindingResult bidingResult, RedirectAttributes redirect,
-            HttpServletResponse response) {
+    public ModelAndView finalizarPedido(@Valid Pedido pedido, BindingResult bidingResult,
+     RedirectAttributes redirect) {
         ModelAndView model;
 
-        if (pedido.getCliente() == null && pedido.getData() == "") {
-            
-            Random random = new Random();
-            Long idRandom = random.nextLong();
-            pedido.setId(idRandom);
-
-            // Salvando o pedido no ArrayList(localmente)
-            pedidos.add(pedido);
-
-            Cookie cookie = new Cookie("car", pedido.getId().toString());
-            response.addCookie(cookie);
-
-            model = new ModelAndView("redirect:/");
-            return model;
-        }
-
-        else if (bidingResult.hasErrors()) {
+        if (bidingResult.hasErrors()) {
             model = new ModelAndView("finalizarPedido.html");
             Iterable<Cliente> clientes = repositorioCliente.findAll();
             Iterable<Item> itens = repositorioItem.findAll();
