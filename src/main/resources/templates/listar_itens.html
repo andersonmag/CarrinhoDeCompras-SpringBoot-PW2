@@ -10,6 +10,22 @@
 
     <title>Lista de Pedidos</title>
 
+    <style>
+    .compras{
+
+        width: 20%;
+        height: 100%;
+        margin-left: 75%;
+        margin-top: 5%;
+
+    }
+
+    .qtdd{
+        position: absolute;
+    }
+
+    </style>
+
 </head>
 
 <body>
@@ -35,7 +51,18 @@
                     <a class="nav-link" href="/fazer_pedido">Fazer Pedido</a>
                 </li>
             </ul>
+         
     </nav>
+    <div class="compras">
+           
+                <div class="qtdd">
+                    <a href="/listar_compras">
+                    <span style="color: green; font-size: 20px" >Ver Meu Carrinho</span>
+                    </a>
+                    <br>
+                   <span th:text="${session.car.size()} + ' itens'" style="margin-left: 32%"></span>
+                </div>
+              </div>
     <div class="m-3">
         <div class="row">
             <div class="col-lg-6  mt-2">
@@ -50,10 +77,12 @@
             </div>
         </div>
 
+ 
+
         </form>
         <p th:text="${mensagem}" style="color: rgb(121, 121, 13); margin-left: 59%; background-color: cornsilk;"></p>
         <p style="color: rgb(121, 121, 13);"><b>
-        Imagens meramentes ilustrativas!</b></p>
+                Imagens meramentes ilustrativas!</b></p>
         <form action="#">
             <table class="table table-hover mt-0" style="max-width: 70%">
                 <thead>
@@ -67,7 +96,7 @@
                 <tbody>
                     <tr th:each="item:${itens}">
                         <td><img th:src="@{${'/img/itens/' + item.id + '/' + item.nomeImagem}}" width="68"
-                                height="70"/></td>
+                                height="70" /></td>
                         <th scope="row" th:text="${item.id}">#</th>
                         <td th:text="${item.nome}"></td>
                         <td th:text="'R$ ' + ${item.preco}"></td>
@@ -75,6 +104,8 @@
                                     height="20" width="20"></a></td>
                         <td><a th:href="@{'/atualizar_cadastro/' + ${item.id}}"><img src="img/editar.png"
                                     title="Atualizar" height="20" width="20"></a></td>
+                        <td><a th:href="@{'/addCarrinho/' + ${item.id}}"><img src="img/carAD.png"
+                                    title="Add" height="20" width="20"></a></td>
                     </tr>
                 </tbody>
             </table>

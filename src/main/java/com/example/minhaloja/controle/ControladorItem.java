@@ -4,7 +4,12 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Item;
 import com.example.minhaloja.repositorios.RepositorioItem;
@@ -51,7 +56,7 @@ public class ControladorItem {
             repositorioItem.save(item);
         }
         
-        redirect.addFlashAttribute("mensagem", item.getNome() + " cadastrado com sucesso!");
+        redirect.addFlashAttribute("message", item.getNome() + " cadastrado com sucesso!");
         return retorno;
     }
 
@@ -76,10 +81,18 @@ public class ControladorItem {
     }
 
     @RequestMapping("/listar_itens")
-    public ModelAndView listar() {
+    public ModelAndView listar(HttpServletRequest request, HttpSession session) {
         ModelAndView model = new ModelAndView("listar_itens.html");
         Iterable<Item> itens = repositorioItem.findAll();
         model.addObject("itens", itens);
+
+        List<Item> car = (ArrayList) request.getSession().getAttribute("car");
+
+        if(car == null){
+            car = new ArrayList<>();
+        }
+
+        request.getSession().setAttribute("car", car);
 
         return model;
     }
@@ -117,6 +130,26 @@ public class ControladorItem {
         ModelAndView model = new ModelAndView("listar_itens.html");
         Iterable<Item> itens = repositorioItem.findByNomeContaining(q);
         model.addObject("itens", itens);
+
+        return model;
+    }
+
+    @RequestMapping("/addCarrinho/{id}")
+    public ModelAndView addCar(@PathVariable("id") Long id, HttpSession session, HttpServletRequest request){
+        ModelAndView model = new ModelAndView("redirect:/listar_compras");
+        Optional<Item> opcao = repositorioItem.findById(id);
+
+        if(opcao.isPresent()){
+            Item item = opcao.get();
+
+            List<Item> car = (ArrayList) request.getSession().getAttribute("car");
+
+            car.add(item);
+            request.getSession().setAttribute("car", car);
+
+            return model;
+
+        }
 
         return model;
     }

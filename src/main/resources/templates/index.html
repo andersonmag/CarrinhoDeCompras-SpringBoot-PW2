@@ -36,10 +36,14 @@
       </ul>
     </div>
   </nav>
+  
 
   <h1 class="display-4 m-4" th:text="'Seja Bem Vindo ' + ${mensagem} + '!'"></h1>
   <a class="ml-4" href="/fazer_pedido">Fazer o pedido agora?</a>
   <br>
+
+  <p th:text="${message}" style="color: rgb(121, 121, 13); margin-left: 59%; background-color: cornsilk;"></p>
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
