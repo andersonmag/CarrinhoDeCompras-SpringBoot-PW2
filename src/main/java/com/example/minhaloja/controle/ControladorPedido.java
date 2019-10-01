@@ -1,6 +1,10 @@
 package com.example.minhaloja.controle;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Cliente;
 import com.example.minhaloja.modelo.Item;
@@ -27,13 +31,26 @@ public class ControladorPedido {
     RepositorioItem repositorioItem;
 
     @RequestMapping("/fazer_pedido")
-    public ModelAndView fazerPedido(RedirectAttributes redirect, Pedido pedido) {
+    public ModelAndView fazerPedido(RedirectAttributes redirect, Pedido pedido, HttpServletRequest request) {
         ModelAndView model = new ModelAndView("finalizarPedido.html");
         Iterable<Cliente> clientes = repositorioCliente.findAll();
         Iterable<Item> itens = repositorioItem.findAll();
-        model.addObject("clientes", clientes);
-        model.addObject("itens", itens);
+        List<Item> car = (ArrayList) request.getSession().getAttribute("car");
 
+        model.addObject("clientes", clientes);
+
+        if(car == null){
+            car = new ArrayList<>();
+        }
+
+        if(car.isEmpty()){
+
+            model.addObject("itens", itens);
+            return model;
+
+        }
+
+        model.addObject("itens", car);
         return model;
     }
 

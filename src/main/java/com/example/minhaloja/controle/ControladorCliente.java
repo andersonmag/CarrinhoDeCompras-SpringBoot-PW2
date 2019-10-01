@@ -1,10 +1,15 @@
 package com.example.minhaloja.controle;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Cliente;
+import com.example.minhaloja.modelo.Item;
 import com.example.minhaloja.repositorios.RepositorioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -23,10 +28,16 @@ public class ControladorCliente {
 
     @RequestMapping("/")
     public ModelAndView index(HttpServletResponse response, @CookieValue(name = "welcome",
-                               defaultValue = "") String welcome){
+                               defaultValue = "") String welcome, HttpServletRequest request){
         ModelAndView model = new ModelAndView("index");
         Cookie cookie = new Cookie("welcome", "novamente");
+        List<Item> car = (ArrayList) request.getSession().getAttribute("car");
 
+        if(car == null){
+            car = new ArrayList<>();
+        }
+        
+        request.getSession().setAttribute("car", car);
         model.addObject("mensagem", welcome);
 		response.addCookie(cookie);
                                 

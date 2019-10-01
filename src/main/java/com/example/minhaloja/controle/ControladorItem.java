@@ -1,22 +1,28 @@
 package com.example.minhaloja.controle;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Item;
 import com.example.minhaloja.repositorios.RepositorioItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,6 +67,7 @@ public class ControladorItem {
     }
 
     private String CriarDiretorio(Item item, MultipartFile imagem){
+
         try {
             byte[] conteudo = imagem.getBytes();
             Path caminhoArquivo = Paths.get("src/main/resources/static/img" + File.separator + "itens"
@@ -84,6 +91,7 @@ public class ControladorItem {
     public ModelAndView listar(HttpServletRequest request, HttpSession session) {
         ModelAndView model = new ModelAndView("listar_itens.html");
         Iterable<Item> itens = repositorioItem.findAll();
+
         model.addObject("itens", itens);
 
         List<Item> car = (ArrayList) request.getSession().getAttribute("car");
@@ -134,24 +142,5 @@ public class ControladorItem {
         return model;
     }
 
-    @RequestMapping("/addCarrinho/{id}")
-    public ModelAndView addCar(@PathVariable("id") Long id, HttpSession session, HttpServletRequest request){
-        ModelAndView model = new ModelAndView("redirect:/listar_compras");
-        Optional<Item> opcao = repositorioItem.findById(id);
-
-        if(opcao.isPresent()){
-            Item item = opcao.get();
-
-            List<Item> car = (ArrayList) request.getSession().getAttribute("car");
-
-            car.add(item);
-            request.getSession().setAttribute("car", car);
-
-            return model;
-
-        }
-
-        return model;
-    }
 
 }

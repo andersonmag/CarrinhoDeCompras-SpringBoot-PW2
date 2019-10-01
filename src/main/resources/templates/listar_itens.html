@@ -8,22 +8,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Lista de Pedidos</title>
+    <title>Lista de Itens</title>
 
     <style>
-    .compras{
+        .compras {
 
-        width: 20%;
-        height: 100%;
-        margin-left: 75%;
-        margin-top: 5%;
+            width: 20%;
+            height: 100%;
+            margin-left: 75%;
+            margin-top: 5%;
 
-    }
+        }
 
-    .qtdd{
-        position: absolute;
-    }
-
+        .qtdd {
+            position: absolute;
+        }
     </style>
 
 </head>
@@ -51,18 +50,18 @@
                     <a class="nav-link" href="/fazer_pedido">Fazer Pedido</a>
                 </li>
             </ul>
-         
+
     </nav>
     <div class="compras">
-           
-                <div class="qtdd">
-                    <a href="/listar_compras">
-                    <span style="color: green; font-size: 20px" >Ver Meu Carrinho</span>
-                    </a>
-                    <br>
-                   <span th:text="${session.car.size()} + ' itens'" style="margin-left: 32%"></span>
-                </div>
-              </div>
+
+        <div class="qtdd">
+            <a href="/listar_compras">
+                <span style="color: green; font-size: 20px">Ver Meu Carrinho</span>
+            </a>
+            <br>
+            <span th:text="${session.car.size()} + ' itens'" style="margin-left: 32%"></span>
+        </div>
+    </div>
     <div class="m-3">
         <div class="row">
             <div class="col-lg-6  mt-2">
@@ -77,7 +76,7 @@
             </div>
         </div>
 
- 
+
 
         </form>
         <p th:text="${mensagem}" style="color: rgb(121, 121, 13); margin-left: 59%; background-color: cornsilk;"></p>
@@ -95,7 +94,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="item:${itens}">
-                        <td><img th:src="@{${'/img/itens/' + item.id + '/' + item.nomeImagem}}" width="68"
+                        <td><img th:src="@{${'/img/itens/' + item.id + '/' + item.nomeImagem}}" width="75"
                                 height="70" /></td>
                         <th scope="row" th:text="${item.id}">#</th>
                         <td th:text="${item.nome}"></td>
@@ -104,8 +103,8 @@
                                     height="20" width="20"></a></td>
                         <td><a th:href="@{'/atualizar_cadastro/' + ${item.id}}"><img src="img/editar.png"
                                     title="Atualizar" height="20" width="20"></a></td>
-                        <td><a th:href="@{'/addCarrinho/' + ${item.id}}"><img src="img/carAD.png"
-                                    title="Add" height="20" width="20"></a></td>
+                        <td><a th:href="@{'/addCarrinho/' + ${item.id}}"><img src="img/carAD.png" title="Add"
+                                    height="20" width="20"></a></td>
                     </tr>
                 </tbody>
             </table>
