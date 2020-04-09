@@ -1,114 +1,81 @@
 package com.example.minhaloja.controle;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Cliente;
-import com.example.minhaloja.modelo.Item;
 import com.example.minhaloja.repositorios.RepositorioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@RequestMapping("/cliente")
 @RestController
 public class ControladorCliente {
 
     @Autowired
     RepositorioCliente repositorioCliente;
 
-    @RequestMapping("/")
-    public ModelAndView index(HttpServletResponse response, @CookieValue(name = "welcome",
-                               defaultValue = "") String welcome, HttpServletRequest request){
-        ModelAndView model = new ModelAndView("index");
-        Cookie cookie = new Cookie("welcome", "novamente");
-        List<Item> car = (ArrayList) request.getSession().getAttribute("car");
-
-        if(car == null){
-            car = new ArrayList<>();
-        }
-        
-        request.getSession().setAttribute("car", car);
-        model.addObject("mensagem", welcome);
-		response.addCookie(cookie);
-                                
-        return model;
+    @GetMapping("/cadastro")
+    public ModelAndView formularioCliente() {
+        return new ModelAndView("cadastroCliente");
     }
 
-    @RequestMapping("/formulario_cliente")
-    public ModelAndView formularioCliente(Cliente cliente) {
-        ModelAndView retorno = new ModelAndView("cadastroCliente.html");
+    @PostMapping("/cadastro")
+    public ModelAndView cadastroCliente(@Valid Cliente cliente, BindingResult bidingResult) {
+        ModelAndView model = new ModelAndView("cadastroCliente");
 
-        return retorno;
-    }
-
-    @RequestMapping("/novo_cliente")
-    public ModelAndView cadastroCliente(@Valid Cliente cliente, BindingResult bidingResult,
-            RedirectAttributes redirect) {
-        ModelAndView retorno;
         if (bidingResult.hasErrors()) {
-            redirect.addFlashAttribute("cliente", cliente);
-            retorno = new ModelAndView("cadastroCliente.html");
-            return retorno;
+            model.addObject("cliente", cliente);
+            return model;
         }
-        retorno = new ModelAndView("redirect:/");
+        model.setViewName("redirect:/");
         repositorioCliente.save(cliente);
-        redirect.addFlashAttribute("mensagem", cliente.getNome() + " cadastrado com sucesso!");
-        return retorno;
+        return model;
     }
 
     @RequestMapping("/excluir/{id}")
     public ModelAndView excluir(@PathVariable("id") Long id, RedirectAttributes redirect) {
         Optional<Cliente> opcao = repositorioCliente.findById(id);
-        ModelAndView model = new ModelAndView("redirect:/listar_clientes");
         if (opcao.isPresent()) {
             Cliente cliente = opcao.get();
             repositorioCliente.deleteById(cliente.getId());
             redirect.addFlashAttribute("mensagem", "Cliente excluido com sucesso!");
-
-            return model;
         }
-        return model;
 
+        return new ModelAndView("redirect:/listar_clientes");
     }
 
     @RequestMapping("/atualizar/{id}")
-    public ModelAndView atualizar(@PathVariable("id") long id) {
-        ModelAndView model = new ModelAndView("cadastroCliente.html");
+    public ModelAndView atualizar(@PathVariable Long id) {
+        ModelAndView model = new ModelAndView("cadastroCliente");
         Optional<Cliente> opcao = repositorioCliente.findById(id);
+
         if (opcao.isPresent()) {
-            Cliente cliente = opcao.get();
-            model.addObject("cliente", cliente);
+            model.addObject("cliente", opcao.get());
             return model;
         }
-
+        model.setStatus(HttpStatus.NOT_FOUND);
         return model;
     }
 
-    @RequestMapping("/listar_clientes")
+    @RequestMapping("/lista")
     public ModelAndView listar() {
-        ModelAndView model = new ModelAndView("listar_clientes.html");
-        Iterable<Cliente> clientes = repositorioCliente.findAll();
-        model.addObject("clientes", clientes);
+        ModelAndView model = new ModelAndView("listar_clientes");
+        model.addObject("clientes", repositorioCliente.findAll());
         return model;
     }
 
-    @RequestMapping("/buscar_cliente")
+    @RequestMapping("/buscar")
     public ModelAndView buscar(String q) {
-        ModelAndView model = new ModelAndView("listar_clientes.html");
-        Iterable<Cliente> clientes = repositorioCliente.findByNomeContaining(q);
-        model.addObject("clientes", clientes);
-
+        ModelAndView model = new ModelAndView("listar_clientes");
+        model.addObject("clientes", repositorioCliente.findByNomeContaining(q));
         return model;
     }
-
 }

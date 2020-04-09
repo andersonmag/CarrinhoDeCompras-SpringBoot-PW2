@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <div class="container mb-5">
+        <blockquote class="blockquote bq-primary">
+            <p class="bq-title" style="font-size: 20pt;">Novidades</p>
+            <small class="float-right">
+                <a href="#" style="font-size: 12pt;color: #2E2E2E;">
+                    Ver Mais
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </small>
+        </blockquote>
+
+        <div class="card-deck">
+            <div class="row">
+                <div class="col-3" th:each="p : ${produtos}">
+                    <div class="card booking-card mt-3">
+                        <div class="view overlay zoom text-center">
+                            <img class="img-fluid imgpu card-img-top" th:src="@{'/localcloud/image/' + ${p.id}}"
+                                th:alt="${p.nome}" th:title="${p.nome}">
+                            <a href="#!">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#" class="nav-link" style="color: rgb(65, 65, 65);">
+                                <h5 class="card-title font-weight-bold d-flex justify-content-center"
+                                    th:text="${p.nome}" style="font-size: 12.5pt;"></h5>
+                            </a>
+                            <ul class="list-unstyled list-inline rating mb-0 d-flex justify-content-center">
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"> </i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item"><i class="fas fa-star-half-alt amber-text"
+                                        style="font-size: 10pt;"></i>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted" style="font-size: 10pt;">4.5 (413)</p>
+                                </li>
+                            </ul>
+                            <strong>
+
+                                <p class="mb-2 d-flex justify-content-center">
+                                    <del class="mr-2 text-muted" style="font-size: 10.5pt;"> R$ 190 </del>
+                                    <span th:text="'R$ ' + ${p.preco}"
+                                        style="font-size: 13pt; color: darkgreen;"></span>
+                                </p>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <blockquote class="blockquote bg-primary-color-dark">
+            <p class="bq-title text-muted" style="font-size: 20pt;">Brasileirão</p>
+            <small class="float-right">
+                <a href="#" style="font-size: 12pt;color: #2E2E2E;">
+                    Ver Mais
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </small>
+        </blockquote>
+
+        <div class="card-deck">
+            <div class="row">
+                <div class="col-3" th:each="p : ${cp}" th:classappend="${cp.size()} gt 1 ? col-3 : col-8">
+                    <div class="card booking-card mt-3">
+                        <div class="view overlay zoom text-center">
+                            <img class="img-fluid imgpu card-img-top" th:src="@{'/localcloud/image/' + ${p.id}}"
+                                th:alt="${p.nome}" th:title="${p.nome}">
+                            <a href="#!">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#" class="nav-link" style="color: rgb(65, 65, 65);">
+                                <h5 class="card-title font-weight-bold d-flex justify-content-center"
+                                    th:text="${p.nome}" style="font-size: 12.5pt;"></h5>
+                            </a>
+                            <ul class="list-unstyled list-inline rating mb-0 d-flex justify-content-center">
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"> </i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item"><i class="fas fa-star-half-alt amber-text"
+                                        style="font-size: 10pt;"></i>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted" style="font-size: 10pt;">4.5 (413)</p>
+                                </li>
+                            </ul>
+                            <strong>
+
+                                <p class="mb-2 d-flex justify-content-center">
+                                    <del class="mr-2 text-muted" style="font-size: 10.5pt;"> R$ 190 </del>
+                                    <span th:text="'R$ ' + ${p.preco}"
+                                        style="font-size: 13pt; color: darkgreen;"></span>
+                                </p>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <blockquote class="blockquote bg-primary-color-dark">
+            <p class="bq-title text-muted" style="font-size: 20pt;" th:each="p : ${ci}" th:text="${p.time.liga.nome}">
+            </p>
+            <small class="float-right">
+                <a href="#" style="font-size: 12pt;color: #2E2E2E;">
+                    Ver Mais
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </small>
+        </blockquote>
+
+        <div class="row">
+            <div class="card-deck">
+                <div th:each="p : ${ci}" th:classappend="${ci.size()} gt 1 ? col-3 : col-8"></a>
+                    <div class="card booking-card mt-3">
+                        <div class="view overlay zoom text-center">
+                            <img class="img-fluid imgpu card-img-top" th:src="@{'/localcloud/image/' + ${p.id}}"
+                                th:alt="${p.nome}" th:title="${p.nome}">
+                            <a href="#!">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#" class="nav-link" style="color: rgb(65, 65, 65);">
+                                <h5 class="card-title font-weight-bold d-flex justify-content-center"
+                                    th:text="${p.nome}" style="font-size: 12.5pt;"></h5>
+                            </a>
+                            <ul class="list-unstyled list-inline rating mb-0 d-flex justify-content-center">
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"> </i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"
+                                        style="font-size: 10pt;"></i></li>
+                                <li class="list-inline-item"><i class="fas fa-star-half-alt amber-text"
+                                        style="font-size: 10pt;"></i>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted" style="font-size: 10pt;">4.5 (413)</p>
+                                </li>
+                            </ul>
+                            <strong>
+
+                                <p class="mb-2 d-flex justify-content-center">
+                                    <del class="mr-2 text-muted" style="font-size: 10.5pt;"> R$ 190 </del>
+                                    <span th:text="'R$ ' + ${p.preco}"
+                                        style="font-size: 13pt; color: darkgreen;"></span>
+                                </p>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

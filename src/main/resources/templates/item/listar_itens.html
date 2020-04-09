@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Lista de Itens</title>
+
+    <style>
+        .compras {
+
+            width: 20%;
+            height: 100%;
+            margin-left: 75%;
+            margin-top: 5%;
+
+        }
+
+        .qtdd {
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Loja</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="false">Cadastrar</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/formulario_cliente">Cliente</a>
+                        <a class="dropdown-item" href="/formulario_item">Item</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fazer_pedido">Fazer Pedido</a>
+                </li>
+            </ul>
+
+    </nav>
+    <div class="compras">
+
+        <div class="qtdd">
+            <a href="/listar_compras">
+                <span style="color: green; font-size: 20px">Ver Meu Carrinho</span>
+            </a>
+            <br>
+            <span th:text="${session.car.size()} + ' itens'" style="margin-left: 32%"></span>
+        </div>
+    </div>
+    <div class="m-3">
+        <div class="row">
+            <div class="col-lg-6  mt-2">
+                <form method="GET" th:action="@{/buscar_item}">
+                    <div class="input-group ml-5">
+                        <input type="search" class="form-control" placeholder="Pesquisar pelo Nome" id="q" name="q"
+                            style="max-width: 60%;">
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger" type="submit">Pesquisar</button>
+                        </span>
+                    </div>
+            </div>
+        </div>
+
+
+
+        </form>
+        <p th:text="${mensagem}" style="color: rgb(121, 121, 13); margin-left: 59%; background-color: cornsilk;"></p>
+        <p style="color: rgb(121, 121, 13);"><b>
+                Imagens meramentes ilustrativas!</b></p>
+        <form action="#">
+            <table class="table table-hover mt-0" style="max-width: 70%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item:${itens}">
+                        <td><img th:src="@{'/image/' + ${item.id}}" width="75"
+                                height="70" /></td>
+                        <th scope="row" th:text="${item.id}">#</th>
+                        <td th:text="${item.nome}"></td>
+                        <td th:text="'R$ ' + ${item.preco}"></td>
+                        <td><a th:href="@{'/excluir_cadastro/' + ${item.id}}"><img src="img/deletar.png" title="Excluir"
+                                    height="20" width="20"></a></td>
+                        <td><a th:href="@{'/atualizar_cadastro/' + ${item.id}}"><img src="img/editar.png"
+                                    title="Atualizar" height="20" width="20"></a></td>
+                        <td><a th:href="@{'/addCarrinho/' + ${item.id}}"><img src="img/carAD.png" title="Add"
+                                    height="20" width="20"></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

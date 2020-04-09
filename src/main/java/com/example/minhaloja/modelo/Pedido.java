@@ -1,5 +1,6 @@
 package com.example.minhaloja.modelo;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,9 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @Entity
 public class Pedido {
@@ -29,21 +31,21 @@ public class Pedido {
     @ManyToMany
     private List<Item> itens;
 
-    @NotBlank(message = "Insira a Data")
-    private String data;
+    @JsonFormat(pattern = "dd.mm.yyyy", shape = Shape.STRING)
+    private LocalDate data;
 
     @NotNull(message = "O valor não pode ser vazio.")
     @DecimalMin("0.1")
     private double valor;
 
-    public Pedido() {
-    }
+    public Pedido() {}
 
-    public Pedido(Cliente cliente, List<Item> itens, String data, double valor) {
+    public Pedido(Cliente cliente, List<Item> itens, LocalDate data, double valor) {
         this.cliente = cliente;
-        this.itens = itens;
+        // this.itens = itens;
         this.data = data;
         this.valor = valor;
+
     }
 
     public Long getId() {
@@ -72,14 +74,6 @@ public class Pedido {
         return valorTotal;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
     public double getValor() {
         return valor;
     }
@@ -94,5 +88,17 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 }

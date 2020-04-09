@@ -3,7 +3,6 @@ package com.example.minhaloja.controle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import com.example.minhaloja.modelo.Cliente;

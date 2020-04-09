@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/css/mdb.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gotu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <title>LojaDoPerigo - Só Produto Caído do Caminhão!</title>
+</head>
+
+<body>
+
+    <th:block th:include="navbar"></th:block>
+    <div class="container mt-5 mb-5">
+        <div class="jumbotron text-center hoverable p-4">
+            <div class="row">
+                <div class="col-md-4 offset-md-1 mx-3 my-3">
+                    <div class="view overlay">
+                        <img th:src="@{'/localcloud/image/' + ${item.id}}" th:alt="${item.nome}" class="img-fluid"
+                            alt="Sample image for first version of blog listing">
+                        <a>
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-md-7 text-md-left ml-3 mt-3">
+                    <a href="#!" class="green-text">
+                        <h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i> Flamengo</h6>
+                    </a>
+
+                    <h4 class="h4 mb-4" th:text="${item.nome}"></h4>
+
+                    <p class="font-weight-normal">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                        accusantium doloremque, totam
+                        rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
+                    <p class="font-weight-normal">by <a><strong>Carine Fox</strong></a>, 19/08/2016</p>
+
+                    <a class="btn btn-success">Read more</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/js/mdb.min.js"></script>
+</body>
+
+</html>

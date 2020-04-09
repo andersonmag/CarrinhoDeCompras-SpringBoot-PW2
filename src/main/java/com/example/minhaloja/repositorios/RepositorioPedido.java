@@ -1,11 +1,11 @@
 package com.example.minhaloja.repositorios;
 
 import com.example.minhaloja.modelo.Pedido;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import org.springframework.data.repository.CrudRepository;
-
-public interface RepositorioPedido extends CrudRepository<Pedido, Long>{
+@Repository
+public interface RepositorioPedido extends JpaRepository<Pedido, Long> {
 
     Iterable<Pedido> findByClienteNomeContaining(String q);
-    
 }

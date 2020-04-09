@@ -1,10 +1,11 @@
 package com.example.minhaloja.modelo;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,8 +26,13 @@ public class Item {
     @DecimalMin("0.1")
     private double preco;
 
-    @Column(name = "nome_imagem")
-    private String nomeImagem;
+    private String descricao;
+
+    @OneToOne
+    private Imagem imagem;
+
+    @ManyToOne
+    private Time time;
 
     public Item() {}
 
@@ -54,12 +60,27 @@ public class Item {
         this.preco = preco;
     }
 
-    public String getNomeImagem() {
-        return nomeImagem;
+    public Imagem getImagem() {
+        return imagem;
     }
 
-    public void setNomeImagem(String nomeImagem) {
-        this.nomeImagem = nomeImagem;
+    public void setImagem(Imagem imagem) {
+        this.imagem = imagem;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
 }

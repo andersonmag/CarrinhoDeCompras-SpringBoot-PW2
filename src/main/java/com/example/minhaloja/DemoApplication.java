@@ -7,14 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {ControladorCliente.class, ControladorItem.class})
+@ComponentScan(basePackageClasses = { ControladorCliente.class, ControladorItem.class })
 @ComponentScan("com.example.minhaloja.configuracao")
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		
 		SpringApplication.run(DemoApplication.class, args);
-
 	}
-
 }
